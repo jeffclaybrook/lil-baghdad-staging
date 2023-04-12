@@ -1,39 +1,38 @@
-// Fetch data
-async function getMenuData() {
+async function getData() {
     const client = contentful.createClient({
         space: 'rmkbw43wse32',
-        accessToken: 'LH1A4Pbn5WMso-OgGWFmnBje0LY48PXd3d3rKLEsQ5c'
+        environment: 'myEnvironment',
+        accessToken: 'cJNcZ9LxEH5J3YhIDFTEvHfk7IKSh30peycaWT2vFK0'
     })
     const res = await client.getEntries({
-        content_type: 'lilBaghdad'
+        content_type: 'lilBaghdadV2'
     })
     const data = await res.items;
     const menu = data.map(item => {
         const {
             name,
+            category,
             description,
-            price,
-            category
+            price
         } = item.fields;
         const image = item.fields.image.fields.file.url;
         return {
             name,
+            category,
             description,
             price,
-            category,
             image
-        };
-    });
-    return menu;
+        }
+    })
+    return menu
 }
 
-// Initialize app
 async function initApp() {
-    createLoader();
+    getPageLoader();
     try {
-        const data = await getMenuData();
-        setNavigationTabs(data);
-        setArticleListItems(data);
+        const menu = await getData();
+        setCategoryTabs(menu);
+        setCategoryItems(menu);
     } catch {
         document.querySelector('body').innerHTML = `
         <h1>Ooops! We're having trouble loading the menu</h1>
@@ -41,61 +40,58 @@ async function initApp() {
     }
 }
 
-// Create loader
-function createLoader() {
+function getPageLoader() {
     const loader = document.querySelector('aside');
     setTimeout(() => {
         loader.classList.remove('visible');
         loader.innerHTML = '';
-    }, 2000);
+    }, 2000)
 }
 
-// Category names
-function getCategoryNames(data) {
-    const categories = data.map(item => {
+function getCategoryNames(menu) {
+    const categories = menu.map(item => {
         const { category } = item;
-        return category;
-    });
+        return category
+    })
     const categoryNames = [...new Set(categories)];
-    return categoryNames;
+    const categoriesSorted = categoryNames.reverse();
+    return categoriesSorted;
 }
 
-// Category objects
-function getCategoryData(data) {
-    const categoryNames = getCategoryNames(data);
-    const categories = data.map(items => {
+function getCategoryData(menu) {
+    const categoryNames = getCategoryNames(menu);
+    const categories = menu.map(items => {
         const {
             name,
+            category,
             description,
             price,
-            category,
             image
         } = items;
         return {
             name,
+            category,
             description,
             price,
-            category,
             image
-        };
+        }
     })
-    let myArr = [];
+    const categoryData = [];
     categoryNames.forEach((category, i) => {
         category = categories.filter(item =>
             item.category === categoryNames[i]
-        );
-        myArr.push(category);
+        )
+        categoryData.push(category);
     })
-    return myArr
+    return categoryData;
 }
 
-// Navigation tabs
-function setNavigationTabs(data) {
-    const categories = getCategoryNames(data);
+function setCategoryTabs(menu) {
+    const categoryNames = getCategoryNames(menu);
     const nav = document.querySelector('nav');
     const ul = document.createElement('ul');
     nav.appendChild(ul);
-    categories.forEach(category => {
+    categoryNames.forEach(category => {
         const lowercaseCategory = category.toLowerCase();
         const li = document.createElement('li');
         const anchor = document.createElement('a');
@@ -107,11 +103,10 @@ function setNavigationTabs(data) {
     })
 }
 
-// Section articles
-function setSectionArticles(data) {
-    const categories = getCategoryNames(data);
+function setCategorySections(menu) {
+    const categoryNames = getCategoryNames(menu);
     const section = document.querySelector('section');
-    categories.forEach(category => {
+    categoryNames.forEach(category => {
         const lowercaseCategory = category.toLowerCase();
         const article = document.createElement('article');
         const h2 = document.createElement('h2');
@@ -122,40 +117,54 @@ function setSectionArticles(data) {
         article.appendChild(h2);
         article.appendChild(ul);
     })
+    const headings = [
+        document.querySelector('#dishes h2'),
+        document.querySelector('#curry h2'),
+        document.querySelector('#breakfast h2')
+    ];
+    const subHeadings = [
+        'Main dishes served with pita bread',
+        'Curry dishes served with side of Basmati rice',
+        'All day, Saturdays only'
+    ];
+    headings.forEach((heading, i) => {
+        const h3 = document.createElement('h3');
+        h3.innerText = subHeadings[i];
+        heading.insertAdjacentElement('afterend', h3);
+    })
 }
 
-// Menu items
-function setArticleListItems(data) {
-    setSectionArticles(data);
-    const categories = getCategoryData(data);
+function setCategoryItems(menu) {
+    setCategorySections(menu);
+    const categoryData = getCategoryData(menu);
     const ul = document.querySelectorAll('article ul');
-    categories.map((items, i) => {
+    categoryData.map((items, i) => {
         ul[i].innerHTML += items.map(item => {
             const {
-                category,
                 name,
+                category,
                 description,
                 price,
                 image
             } = item;
+            const priceFormatted = price.toFixed(2);
             return `
-            <li onclick="createModal('${category}', '${name}', '${description}', '${price}', '${image}')">
+            <li onclick="createModal('${name}', '${category}', '${description}', '${priceFormatted}', '${image}')">
                 <div class="item-image">
                     <img src="${image}" alt="${name}" style="aspect-ratio: 16 / 10" loading="lazy">
                 </div>
                 <div class="item-details">
                     <h3>${name}</h3>
                     <p>${description}</p>
-                    <h4>${price}</h4>
+                    <h4>$${priceFormatted}</h4>
                 </div>
             </li>
             `
-        }).join('');
+        }).join('')
     })
 }
 
-// Create modal
-function createModal(category, name, description, price, image) {
+function createModal(name, category, description, priceFormatted, image) {
     const body = document.querySelector('body');
     const dialog = document.querySelector('dialog');
     body.style.overflow = 'hidden';
@@ -175,13 +184,12 @@ function createModal(category, name, description, price, image) {
             <h5>${category}</h5>
             <h3>${name}</h3>
             <p>${description}</p>
-            <h4>${price}</h4>
+            <h4>$${priceFormatted}</h4>
         </div>
     </div>
     `
 }
 
-// Close modal
 function closeModal() {
     const body = document.querySelector('body');
     const dialog = document.querySelector('dialog');
@@ -191,7 +199,6 @@ function closeModal() {
     dialog.innerHTML = '';
 }
 
-// Tab click
 function onTabClick() {
     const tabs = document.querySelectorAll('nav ul li');
     tabs.forEach((tab, i) => {
@@ -202,25 +209,24 @@ function onTabClick() {
     })
 }
 
-// Active tab on page scroll
 function onPageScroll() {
     const articles = document.querySelectorAll('article');
     const tabs = document.querySelectorAll('nav ul li');
     let current = '';
     articles.forEach(article => {
         const articleTop = article.offsetTop;
-        if (window.pageYOffset >= articleTop - 50) {
-            current = article.getAttribute('id');
+        if (window.pageYOffset >= articleTop - 60) {
+            current = article.getAttribute('id')
         }
     })
     tabs.forEach(tab => {
         tab.classList.remove('active');
         if (tab.classList.contains(current)) {
-            tab.classList.add('active');
+            tab.classList.add('active')
         }
     })
 }
 
-window.addEventListener('scroll', onPageScroll);
+window.addEventListener('scroll', onPageScroll)
 
 initApp()
