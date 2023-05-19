@@ -73,7 +73,7 @@ header {
   align-items: center;
   justify-content: center;
   block-size: 100vh;
-  padding-block-end: 2rem;
+  padding-block-end: 4rem;
 }
 
 header figure {
@@ -114,13 +114,14 @@ header .flex {
 }
 
 header a {
+  flex: 1 1 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid var(--border-100);
   block-size: 3rem;
-  inline-size: 200px;
   border-radius: 2rem;
+  
 }
 
 header a svg {
