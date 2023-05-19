@@ -1,0 +1,579 @@
+:root {
+  --border-100: #e1e3e540;
+  --border-200: #e1e3e51f;
+  --surface-100: #292a2d;
+  --surface-200: #292a2df2;
+  --text-100: #e1e3e5;
+  --text-200: #e1e3e5c6;
+  --theme-100: #76c7cd;
+  --theme-200: #76c7cd19;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body {
+  font-size: 16px;
+  min-inline-size: 100%;
+  min-block-size: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Figtree", system-ui, sans-serif;
+  background: var(--surface-100);
+  color: var(--text-100);
+  user-select: none;
+  text-rendering: optimizeLegibility;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  -webkit-user-select: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  -webkit-user-drag: none;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  block-size: 100vh;
+  padding-block-end: 2rem;
+}
+
+header figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-block-start: auto;
+  margin-block-end: 3rem;
+}
+
+header figure img {
+  display: block;
+}
+
+figcaption {
+  font-size: 1.25rem;
+  font-weight: 450;
+  letter-spacing: 0.02em;
+  font-variant: small-caps;
+}
+
+header h5 {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  margin-block-end: 1rem;
+}
+
+header .flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-block-end: auto;
+}
+
+header a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-100);
+  block-size: 3rem;
+  inline-size: 200px;
+  border-radius: 2rem;
+}
+
+header a svg {
+  block-size: 1rem;
+}
+
+header > svg {
+  opacity: 0.6;
+}
+
+header p {
+  opacity: 0.6;
+}
+
+main {
+  position: relative;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  left: 0;
+  min-inline-size: 100%;
+  background: var(--surface-200);
+  border-bottom: 1px solid var(--border-100);
+  z-index: 2;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  overflow-x: scroll;
+  max-inline-size: 850px;
+  inline-size: 100%;
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  padding: 0 0.75rem;
+}
+
+nav ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+nav ul li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  block-size: 0.1275rem;
+  inline-size: 100%;
+  border-radius: 0.1875rem 0.1875rem 0 0;
+  background: transparent;
+}
+
+nav ul li.active::after {
+  background: var(--theme-100);
+}
+
+nav ul li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-100);
+  font-family: "Figtree", sans-serif;
+  font-size: 0.925rem;
+  letter-spacing: 0.02em;
+  padding: 0.75rem 0.25rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+}
+
+nav ul li.active a {
+  color: var(--theme-100);
+}
+
+section {
+  inline-size: 100%;
+  min-block-size: 100%;
+}
+
+article {
+  max-inline-size: 850px;
+  inline-size: 100%;
+  position: relative;
+  padding: 0 0.75rem;
+  margin: 0 auto 1.5rem;
+}
+
+article h2 {
+  font-size: 1.375rem;
+  font-weight: 450;
+  letter-spacing: 0.03em;
+  padding-block-start: 0.75rem;
+}
+
+article > h3 {
+  font-size: 0.925rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--text-200);
+  padding-block-start: 0.25rem;
+}
+
+article ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block-start: 0.75rem;
+  padding-block-end: 2.5rem;
+  border-bottom: 1px solid var(--border-100);
+}
+
+article:last-of-type ul {
+  border-bottom: 0;
+}
+
+article ul li {
+  flex: 1 1 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.325rem;
+  cursor: pointer;
+  position: relative;
+  border-radius: 0.5rem;
+}
+
+article ul li .item-image {
+  display: flex;
+  aspect-ratio: 16 / 10;
+  background: var(--border-200);
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+article ul li .item-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+}
+
+article ul li .item-image img {
+  object-fit: cover;
+  inline-size: 100%;
+  block-size: 100%;
+  border-radius: inherit;
+}
+
+article ul li .item-details {
+  display: flex;
+  flex-direction: column;
+  padding: 0.125rem;
+}
+
+article ul li .item-details h3 {
+  font-size: 1.1275rem;
+  font-weight: 450;
+  letter-spacing: 0.02em;
+  margin-block-end: 0.25rem;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+article ul li .item-details h4 {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+article ul li .item-details p {
+  font-size: 0.875rem;
+  color: var(--text-200);
+  letter-spacing: 0.015em;
+  line-height: 1.3;
+  margin-block-end: 0.25rem;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: normal;
+  word-break: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+article ul li.disabled {
+  pointer-events: none;
+}
+
+article ul li.disabled .item-image::before {
+  content: "Breakfast available on Saturdays only";
+  font-size: 1.325rem;
+  letter-spacing: 0.02em;
+  font-family: "Figtree", sans-serif;
+  padding: 0 3rem;
+  line-height: 1.4;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+article ul li.disabled .item-details {
+  opacity: 0.35;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 1rem 1rem;
+  border-top: 1px solid var(--border-100);
+}
+
+footer > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer > a img {
+  object-fit: cover;
+}
+
+footer ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+footer ul li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer ul li a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--border-100);
+}
+
+footer p {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-200);
+  text-align: center;
+}
+
+dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  inset-block-start: 0px;
+  inset-inline-start: 0px;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+  block-size: 100%;
+  max-block-size: none;
+  inline-size: 100%;
+  max-inline-size: none;
+  margin: 0;
+  border: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 3;
+  background-color: transparent;
+  transition: opacity 0s ease 0s;
+  will-change: opacity;
+  display: none;
+}
+
+dialog::backdrop {
+  display: none;
+}
+
+dialog.expanded {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition-duration: 0.15s;
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+}
+
+dialog .dialog-scrim {
+  position: fixed;
+  inset: 0px;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  block-size: 100%;
+  inline-size: 100%;
+  pointer-events: inherit;
+  visibility: visible;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.7);
+  -webkit-tap-highlight-color: transparent;
+}
+
+dialog .dialog-scrim::after {
+  content: "";
+  display: block;
+  block-size: 200%;
+  inline-size: 200%;
+}
+
+dialog .dialog-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  max-block-size: 95%;
+  max-inline-size: 600px;
+  inline-size: 100%;
+  border-radius: 0.5rem;
+  flex-shrink: 1;
+  transform: scale(1);
+  transform-origin: center bottom;
+  z-index: 3;
+  background: var(--surface-100);
+  will-change: display, transform;
+}
+
+dialog.expanded .dialog-content {
+  animation-name: scaleUp;
+  animation-duration: 0.15s;
+}
+
+dialog .dialog-content .dialog-header {
+  display: flex;
+  max-block-size: 100%;
+  block-size: 100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  padding-bottom: 60%;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+dialog .dialog-content .dialog-header button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: 2.25rem;
+  inline-size: 2.25rem;
+  border-radius: 50%;
+  background: #ffffff;
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+}
+
+dialog .dialog-content .dialog-body {
+  display: flex;
+  flex-direction: column;
+  block-size: fit-content;
+  padding: 0.75rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+dialog .dialog-content .dialog-body h3 {
+  font-size: 1.1875rem;
+  font-weight: 550;
+  color: var(--text-100);
+  letter-spacing: 0.015em;
+  margin-block-end: 0.325rem;
+}
+
+dialog .dialog-content .dialog-body h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-100);
+}
+
+dialog .dialog-content .dialog-body h5 {
+  font-size: 0.75rem;
+  font-weight: 450;
+  color: var(--theme-100);
+  opacity: 0.9;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding-block-start: 0.25rem;
+  margin-block-end: 0.25rem;
+}
+
+dialog .dialog-content .dialog-body p {
+  font-size: 0.975rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--text-200);
+  line-height: 1.35;
+  margin-block-end: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  article ul li {
+    flex: 0 1 calc(50% - 0.5rem);
+  }
+
+  article ul li .item-details h3 {
+    font-size: 1.1875rem;
+  }
+
+  article ul li .item-details h4 {
+    font-size: 1rem;
+  }
+
+  article ul li .item-details p {
+    font-size: 0.975rem;
+  }
+
+  article ul li.disabled .item-image::before {
+    padding: 0 5rem;
+    font-size: 1.5rem;
+  }
+
+  dialog .dialog-container .dialog-body {
+    padding: 1rem;
+  }
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
